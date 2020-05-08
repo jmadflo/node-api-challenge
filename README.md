@@ -40,13 +40,23 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+I learned how to run a server with express at a paricular port, and I also learned how to enable express to use any middleware or routers that we create and to allow for cross origin resource sharing using the cors dependency so that we can make requests to our API from other domains.
+
 - [ ] Describe Middleware?
+
+Middleware are functions that can be run between the client request and the route handler function. They are ideal for performing useful, but repetitive tasks such as validating the client request to make sure that the request body is in line with the expected schema for a request to that route.
 
 - [ ] Describe a Resource?
 
+A resource is some information that is hosted by the server and can be accessed by the client through endpoints.
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+An API can send a successful request a status in the 200s and the data that the user should receive from the endpoint as a result of the request. This could be a resource such as a list of users or a simple message stating that the request was successful.
+
 - [ ] How can we partition our application into sub-applications?
+
+We can partition our application using routers, which allow us to group the routes that deal with similar database information together.
 
 ## Minimum Viable Product
 
