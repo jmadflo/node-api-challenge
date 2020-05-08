@@ -27,6 +27,22 @@ router.get('/:id', validateActionId, (req, res) => {
         })
 })
 
+// deletes an action using its id
+router.delete('/:id', validateActionId, (req, res) => {
+    actionData.remove(req.params.id)
+        .then(numberOfDeletedActions => {
+            // only returns a confirmation message
+            if (numberOfDeletedActions === 1){
+                res.status(200).json({ message: `The action with an id of ${req.params.id} was deleted from the database.` })
+            } else {
+                res.status(500).json({ message: `The action with an id of ${req.params.id} could not be deleted from the database.` })
+            }
+        })
+        .catch(() => {
+            res.status(500).json({ message: `The action with an id of ${req.params.id} could not be deleted from the database.` })
+        })
+})
+
 // middleware
 
 function validateActionId(req, res, next) {
