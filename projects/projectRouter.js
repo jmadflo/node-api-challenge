@@ -1,5 +1,6 @@
 const express = require('express')
 const projectData = require('../data/helpers/projectModel')
+const actionData = require('../data/helpers/actionModel')
 
 const router = express.Router()
 
@@ -54,6 +55,19 @@ router.post('/', validateProject, (req, res) => {
         })
 })
 
+// inserts new action and does validation through middleware
+router.post('/:id/actions', validateAction, validateProjectId, (req, res) => {
+    // insert new action
+    actionData.insert({ ...req.body, project_id: req.params.id })
+        .then(insertedAction => {
+            // returns the inserted action
+            res.status(200).json(insertedAction)
+        })
+        .catch(() => {
+            res.status(500).json({ message: `The action could not be inserted into the database for user with an id of ${req.params.id}.` })
+        })
+})
+
 // middleware
 
 function validateProjectId(req, res, next) {
@@ -82,11 +96,9 @@ function validateProject(req, res, next) {
 }
   
 function validateAction(req, res, next) {
-    // send 400 error if req.body is missing or if req.body.project_id, description, or notes is missing
+    // send 400 error if req.body is missing or if req.body.description or notes is missing
     if (!req.body){
         res.status(400).json({ message: "missing action data" })
-    } else if (!req.body.project_id){
-        res.status(400).json({ message: "missing required project_id field" })
     } else if (!req.body.description){
         res.status(400).json({ message: "missing required description field" })
     } else if (!req.body.notes){
