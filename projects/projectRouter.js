@@ -3,6 +3,18 @@ const projectData = require('../data/helpers/projectModel')
 
 const router = express.Router()
 
+// gets array of all of the projects
+router.get('/', (req, res) => {
+    projectData.get()
+        .then(allProjects => {
+            // returns all projects
+            res.status(200).json(allProjects)
+        })
+        .catch(() =>{
+            res.status(500).json({ message: 'The projects could not be retrieved from the database.' })
+        })
+})
+
 // middleware
 
 function validateProjectId(req, res, next) {
@@ -17,7 +29,7 @@ function validateProjectId(req, res, next) {
         })
 }
   
-  function validateProject(req, res, next) {
+function validateProject(req, res, next) {
     // send 400 error if req.body is missing, if req.body.name is missing, or if req.body.description is missing
     if (!req.body){
         res.status(400).json({ message: "missing project data" })
@@ -28,9 +40,9 @@ function validateProjectId(req, res, next) {
     } else {
         next()
     }
-  }
+}
   
-  function validateAction(req, res, next) {
+function validateAction(req, res, next) {
     // send 400 error if req.body is missing or if req.body.project_id, description, or notes is missing
     if (!req.body){
         res.status(400).json({ message: "missing action data" })
@@ -43,6 +55,6 @@ function validateProjectId(req, res, next) {
     } else {
         next()
     }
-  }
+}
 
 module.exports = router
