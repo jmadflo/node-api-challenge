@@ -7,15 +7,17 @@ const ProjectInfo = props => {
 
     return (
         <div className='UserInfo'>
-            <h1>{props.clickedUser}</h1>
+            <h1>{props.clickedProject}</h1>
             <h2>Id: {id}</h2>
             <h2>Posts:</h2>
-            {props.dataToRender.map(post => {
+            {props.dataToRender.map(action => {
                 return (
-                    <div key={post.id} className='instance'>
-                        <p>Id: {post.id}</p>
-                        <p>Text: {post.text}</p>
-                        <p>Posted By: {post.postedBy}</p>
+                    <div key={action.id} className='instance'>
+                        <p>Id: {action.id}</p>
+                        <p>Project_Id: {action.project_id}</p>
+                        <p>Description By: {action.description}</p>
+                        <p>Notes By: {action.notes}</p>
+                        <p>Completed: {action.completed ? 'true' : 'false'}</p>
                     </div>
                 )
             })}

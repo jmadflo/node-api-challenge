@@ -196,7 +196,9 @@ function App() {
                 <input name='id' placeholder='id' value={projectFormValues.id} onChange={updateProjectForm}/>
                 <input name='name' placeholder='name' value={projectFormValues.name} onChange={updateProjectForm}/>
                 <input name='description' placeholder='description' value={projectFormValues.description} onChange={updateProjectForm}/>
-                <input name='completed' checked={projectFormValues.completed} onChange={updateProjectForm}/>
+                <label htmlFor='project completed'>Completed: 
+                  <input id='project completed' name='completed' type='checkbox' checked={projectFormValues.completed} onChange={updateProjectForm}/>
+                </label>
               </form>
               <form>
                 <h2>Action Form</h2>
@@ -204,7 +206,10 @@ function App() {
                 <input name='project_id' placeholder='project id' value={actionFormValues.project_id} onChange={updateActionForm}/>
                 <input name='description' placeholder='description' value={actionFormValues.description} onChange={updateActionForm}/>
                 <input name='notes' placeholder='notes' value={actionFormValues.notes} onChange={updateActionForm}/>
-                <input name='completed' checked={actionFormValues.completed} onChange={updateActionForm}/>
+                <label htmlFor='action completed'>Completed: 
+                  <input id='action completed' name='completed' type='checkbox' checked={actionFormValues.completed} onChange={updateActionForm}/>
+                </label>
+                
 
               </form>
             </div>
