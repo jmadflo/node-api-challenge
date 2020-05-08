@@ -15,6 +15,18 @@ router.get('/', (req, res) => {
         })
 })
 
+// returns action with a specified id
+router.get('/:id', validateActionId, (req, res) => {
+    actionData.get(req.params.id)
+        .then(singleAction => {
+            // returns the one action with an id of req.params.id
+            res.status(200).json(singleAction)
+        })
+        .catch(() => {
+            res.status(500).json({ message: `The action with an id of ${req.params.id} could not be retrieved from the database.` })
+        })
+})
+
 // middleware
 
 function validateActionId(req, res, next) {
