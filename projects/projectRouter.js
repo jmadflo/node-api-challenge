@@ -55,7 +55,7 @@ router.post('/', validateProject, (req, res) => {
         })
 })
 
-// inserts new action and does validation through middleware
+// inserts new action to a project and does validation through middleware
 router.post('/:id/actions', validateAction, validateProjectId, (req, res) => {
     // insert new action
     actionData.insert({ ...req.body, project_id: req.params.id })
@@ -64,7 +64,23 @@ router.post('/:id/actions', validateAction, validateProjectId, (req, res) => {
             res.status(200).json(insertedAction)
         })
         .catch(() => {
-            res.status(500).json({ message: `The action could not be inserted into the database for user with an id of ${req.params.id}.` })
+            res.status(500).json({ message: `The action could not be inserted into the database for project with an id of ${req.params.id}.` })
+        })
+})
+
+// deletes project with an id of req.params.id
+router.delete('/:id', validateProjectId, (req, res) => {
+    projectData.remove(req.params.id)
+        .then(numberOfDeletedProjects => {
+            // only returns a confirmation message
+            if (numberOfDeletedProjects === 1){
+                res.status(200).json({ message: `The project with an id of ${req.params.id} was deleted from the database.` })
+            } else {
+                res.status(500).json({ message: `The project with an id of ${req.params.id} could not be deleted from the database.` })
+            }
+        })
+        .catch(() => {
+            res.status(500).json({ message: `The project with an id of ${req.params.id} could not be deleted from the database.` })
         })
 })
 
