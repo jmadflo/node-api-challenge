@@ -81,7 +81,7 @@ function App() {
     axios.create({ headers: {'Content-Type': 'application/json'} })
       .post('http://localhost:7000/api/projects/', {
         name: projectFormValues.name,
-        description: projectFormValues,
+        description: projectFormValues.description,
         completed: projectFormValues.completed
       })
       .then(response => {
@@ -122,7 +122,7 @@ function App() {
     axios.create({ headers: {'Content-Type': 'application/json'} })
       .put(`http://localhost:7000/api/projects/${projectFormValues.id}`, {
         name: projectFormValues.name,
-        description: projectFormValues,
+        description: projectFormValues.description,
         completed: projectFormValues.completed
       })
       .then(response => {
