@@ -27,6 +27,18 @@ router.get('/:id', validateProjectId, (req, res) => {
         })
 })
 
+// get all actions for a project
+router.get('/:id/actions', validateProjectId, (req, res) => {
+    projectData.getProjectActions(req.params.id)
+        .then(allActionsForProject => {
+            // return all actions for project with an id of req.params.id
+            res.status(200).json(allActionsForProject)
+        })
+        .catch(() => {
+            res.status(500).json({ message: `The actions associated with the project with an id of ${req.params.id} could not be retrieved from the database.` })
+        })
+})
+
 // middleware
 
 function validateProjectId(req, res, next) {
