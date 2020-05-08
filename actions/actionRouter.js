@@ -43,6 +43,19 @@ router.delete('/:id', validateActionId, (req, res) => {
         })
 })
 
+router.put('/:id', validateActionId, validateAction, (req, res) => {
+    // first, action with id of req.params.id is updated
+    actionData.update(req.params.id, req.body)
+        // then, if update is successful, return the updated action to the client
+        .then(updatedAction => {
+            console.log(updatedAction)
+            res.status(200).json(updatedAction)
+        })
+        .catch(() => {
+            res.status(500).json({ message: `The action with an id of ${req.params.id} could not be retrieved once updated.` })
+        })
+})
+
 // middleware
 
 function validateActionId(req, res, next) {
