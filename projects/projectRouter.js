@@ -84,6 +84,19 @@ router.delete('/:id', validateProjectId, (req, res) => {
         })
 })
 
+router.put('/:id', validateProjectId, validateProject, (req, res) => {
+    // first, project with id of req.params.id is updated
+    projectData.update(req.params.id, req.body)
+        // then, if update is successful, return the updated project to the client
+        .then(updatedProject => {
+            console.log(updatedProject)
+            res.status(200).json(updatedProject)
+        })
+        .catch(() => {
+            res.status(500).json({ message: `The project with an id of ${req.params.id} could not be retrieved once updated.` })
+        })
+})
+
 // middleware
 
 function validateProjectId(req, res, next) {
