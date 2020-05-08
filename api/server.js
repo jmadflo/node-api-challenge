@@ -1,12 +1,14 @@
 const express = require('express')
-const projectRouter = require('./projects/projectRouter')
-const actionRouter = require('./actions/actionRouter')
+const projectRouter = require('../projects/projectRouter')
+const actionRouter = require('../actions/actionRouter')
+const cors = require('cors')
 
 
 const server = express()
 
 server.use(logger)
 server.use(express.json())
+server.use(cors()) // for access from React app
 server.use('/api/projects', projectRouter)
 server.use('/api/actions', actionRouter)
 
