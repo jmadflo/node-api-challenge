@@ -3,6 +3,18 @@ const actionData = require('../data/helpers/actionModel')
 
 const router = express.Router()
 
+// gets all actions
+router.get('/', (req, res) => {
+    actionData.get()
+        .then(allActions => {
+            // returns all actions
+            res.status(200).json(allActions)
+        })
+        .catch(() =>{
+            res.status(500).json({ message: 'The actions could not be retrieved from the database.' })
+        })
+})
+
 // middleware
 
 function validateActionId(req, res, next) {
