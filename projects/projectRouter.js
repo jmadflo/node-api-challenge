@@ -39,6 +39,21 @@ router.get('/:id/actions', validateProjectId, (req, res) => {
         })
 })
 
+// inserts new project into database
+router.post('/', validateProject, (req, res) => {
+    // do your magic!
+    console.log(req.body)
+    projectData.insert(req.body)
+        .then(insertedProject => {
+            console.log(insertedProject)
+            // returns inserted project
+            res.status(200).json(insertedProject)
+        })
+        .catch(() => {
+            res.status(500).json({ message: 'The project could not be inserted into the database.' })
+        })
+})
+
 // middleware
 
 function validateProjectId(req, res, next) {
