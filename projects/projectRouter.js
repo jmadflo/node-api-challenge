@@ -15,11 +15,23 @@ router.get('/', (req, res) => {
         })
 })
 
+// get project by its id
+router.get('/:id', validateProjectId, (req, res) => {
+    projectData.get(req.params.id)
+        .then(singleProject => {
+            // returns the one project with an id of req.params.id
+            res.status(200).json(singleProject)
+        })
+        .catch(() => {
+            res.status(500).json({ message: `The project with an id of ${req.params.id} could not be retrieved from the database.` })
+        })
+})
+
 // middleware
 
 function validateProjectId(req, res, next) {
     // get project with the params id and assign it to req.project, otherwise return a 400 error
-    projectData.getById(req.params.id)
+    projectData.get(req.params.id)
         .then(project => {
             req.project = project
             next()
